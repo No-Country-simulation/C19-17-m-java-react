@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+    background-color: #ffffff; /* Color de fondo de la barra */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #F26A3F; /* Color del "thumb" (la parte que se arrastra) */
+    border-radius: 1px; /* Borde redondeado del "thumb" */
+  }
+  
