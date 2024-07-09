@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-
-
 @Repository
 @RepositoryRestResource(exported = false)
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -18,8 +16,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Boolean existsByUsername(String username);
 
   Boolean existsByEmail(String email);
-  
-  List<User> findAll();	
-  User findById(long userId);	
+
+  List<User> findAll();
+
+  User findById(long userId);
+
   User findByEmail(String email);
 }

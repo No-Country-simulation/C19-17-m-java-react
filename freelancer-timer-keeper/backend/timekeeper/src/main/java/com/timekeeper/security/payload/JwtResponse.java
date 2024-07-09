@@ -1,6 +1,8 @@
 package com.timekeeper.security.payload;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -19,13 +21,5 @@ public class JwtResponse {
     this.username = username;
     this.email = email;
     this.roles = roles;
-  }
-
-  public String getTokenType() {
-    return type;
-  }
-
-  public void setTokenType(String tokenType) {
-    this.type = tokenType;
   }
 }

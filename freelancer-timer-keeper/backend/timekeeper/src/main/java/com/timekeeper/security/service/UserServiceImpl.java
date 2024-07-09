@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class UserServiceImpl implements IUser {
     private final UserRepository userRepository;
@@ -28,7 +29,6 @@ public class UserServiceImpl implements IUser {
 
     @Override
     public User getUserByUserId(long userId) {
-
         return userRepository.findById(userId);
     }
 
@@ -41,22 +41,21 @@ public class UserServiceImpl implements IUser {
     public User updateUser(long userId, User updatedUser) {
         User existingUser = userRepository.findById(userId);
         if (existingUser != null) {
-            existingUser.setFirstName(updatedUser.getFirstName());
-            existingUser.setLastName(updatedUser.getLastName());
+            existingUser.setFirstname(updatedUser.getFirstname());
+            existingUser.setLastname(updatedUser.getLastname());
             existingUser.setUsername(updatedUser.getUsername());
             existingUser.setEmail(updatedUser.getEmail());
 
             userRepository.save(existingUser);
-        }
-        else {
+        } else {
             throw new UserNotFoundException("User with ID " + userId + " not found");
         }
         return existingUser;
     }
-    public class UserNotFoundException extends RuntimeException {
+
+    public static class UserNotFoundException extends RuntimeException {
         public UserNotFoundException(String message) {
             super(message);
         }
     }
 }
-
