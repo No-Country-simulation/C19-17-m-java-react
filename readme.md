@@ -34,7 +34,7 @@ cd tu-repositorio
 - Execute the following SQL command to create a database named `timekeeper`:
 
   ```sql
-  CREATE DATABASE timekeeper;```
+  CREATE DATABASE timekeeper;
 ### Clone Repository
 
 To clone the repository `C19-17-m-java-react` from GitHub, use the following command:
