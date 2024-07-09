@@ -51,13 +51,17 @@ git clone https://github.com/No-Country-simulation/C19-17-m-java-react.git;
 cd C19-17-m-java-react/freelancer-timer-keeper/backend/timekeeper
 ```
 
-### MySQL Dependency update
-- Remove current MySQL depency and add:
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+### MySQL Dependency Update
+
+To update the MySQL dependency in your Maven project, replace the existing dependency with the following:
+
+```xml
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <scope>runtime</scope>
+</dependency>
+```
 
 ### Application properties
 - Add your username and password for MySQL database.
