@@ -15,6 +15,9 @@ To clone the repository `C19-17-m-java-react` from GitHub, use the following com
 ```sh
 git clone https://github.com/No-Country-simulation/C19-17-m-java-react.git;
 ```
+
+## Make sure you are working on the backend directory 
+
 ### Application properties
 - Add your username and password for MySQL database.
 
