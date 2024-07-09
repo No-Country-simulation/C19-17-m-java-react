@@ -18,6 +18,12 @@ git clone https://github.com/No-Country-simulation/C19-17-m-java-react.git;
 
 ## Make sure you are working on the backend directory 
 
+### Move to directory 
+
+```sh
+cd C19-17-m-java-react/freelancer-timer-keeper/backend/timekeeper
+```
+
 ### Application properties
 - Add your username and password for MySQL database.
 
