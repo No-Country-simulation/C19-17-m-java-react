@@ -63,7 +63,6 @@ public class AuthController {
 				new JwtResponse(userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}
 
-
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -75,37 +74,42 @@ public class AuthController {
 		}
 
 		// Create new user's account
-		User user = new User(signUpRequest.getFirstname(),  signUpRequest.getLastname(), signUpRequest.getUsername(), signUpRequest.getEmail(),
-				encoder.encode(signUpRequest.getPassword()));
+		User user = User.builder()
+				.firstname(signUpRequest.getFirstname())
+				.lastname(signUpRequest.getLastname())
+				.username(signUpRequest.getUsername())
+				.email(signUpRequest.getEmail())
+				.password(encoder.encode(signUpRequest.getPassword()))
+				.roles(new HashSet<>())
+				.build();
 
 		Set<String> strRoles = signUpRequest.getRole();
-		Set<Role> roles = new HashSet<>();
-
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-			roles.add(userRole);
+			user.getRoles().add(userRole);
 		} else {
-			for (String role : strRoles) {
+			strRoles.forEach(role -> {
 				switch (role.toLowerCase()) {
-					case "user":
-						Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+					case "admin":
+						Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-						roles.add(userRole);
+						user.getRoles().add(adminRole);
 						break;
 					case "freelancer":
 						Role freelancerRole = roleRepository.findByName(ERole.ROLE_FREELANCER)
 								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-						roles.add(freelancerRole);
+						user.getRoles().add(freelancerRole);
 						break;
 					default:
-						return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid role specified!"));
+						Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+						user.getRoles().add(userRole);
 				}
-			}
+			});
 		}
 
-		user.setRoles(roles);
-
+		user.setBirthday(signUpRequest.getBirthday());
 		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
@@ -129,14 +133,14 @@ public class AuthController {
 		} else {
 			for (String role : strRoles) {
 				switch (role.toLowerCase()) {
-					case "user":
-						addRoleIfExists(ERole.ROLE_USER, roles);
+					case "admin":
+						addRoleIfExists(ERole.ROLE_ADMIN, roles);
 						break;
 					case "freelancer":
 						addRoleIfExists(ERole.ROLE_FREELANCER, roles);
 						break;
 					default:
-						return ResponseEntity.badRequest().body(new MessageResponse("Error: Invalid role specified!"));
+						addRoleIfExists(ERole.ROLE_USER, roles);
 				}
 			}
 		}

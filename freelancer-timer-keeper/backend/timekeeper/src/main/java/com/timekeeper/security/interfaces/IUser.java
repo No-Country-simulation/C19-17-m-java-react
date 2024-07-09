@@ -11,13 +11,13 @@ import java.util.List;
 @Primary
 public interface IUser {
 
-	List<User> getUsers();
+	 List<User> getUsers();
 
-	void deleteUser(long userId);
+	    void deleteUser(long userId);
 
-	User getUserByUserId(long userId);
+	    User getUserByUserId(long userId);
 
-	User getUserByUserName(String userName);
+	    User getUserByUserName(String userName);
 
-	User updateUser(long userId, User updatedUser);
+	    User updateUser(long userId, User updatedUser);
 }
