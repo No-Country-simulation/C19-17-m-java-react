@@ -4,7 +4,7 @@ import Menu from './components/layout/menu';
 import Footer from './components/layout/footer';
 import Home from './components/pages/home';
 import Login from './components/auth/login';
-import Register from './components/auth/registro';
+import Register from './components/auth/register';
 import Dashboard from './components/layout/Dashboard';
 const App: React.FC = () => {
   return (
