@@ -1,33 +1,64 @@
-import { FaTasks, FaUsers, FaChartBar } from 'react-icons/fa';
 
+import {  List, ListItem, ListItemIcon, ListItemText, } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import HistoryIcon from '@mui/icons-material/History';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import GroupIcon from '@mui/icons-material/Group';
+import BusinessIcon from '@mui/icons-material/Business';
+import { Link } from 'react-router-dom';
 const Dashboard = () => {
   return (
     <div className="flex">
       {/* Sidebar */}
-      <aside className="bg-gray-900 text-white w-64 p-4">
-        <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-        <ul className="space-y-2">
-          <li>
-            <a href="#" className="flex items-center text-gray-300 hover:text-white">
-              <FaTasks className="text-xl mr-2" />
-              Tareas
-            </a>
-          </li>
-          <li>
-            <a href="#" className="flex items-center text-gray-300 hover:text-white">
-              <FaUsers className="text-xl mr-2" />
-              Usuarios
-            </a>
-          </li>
-          <li>
-            <a href="#" className="flex items-center text-gray-300 hover:text-white">
-              <FaChartBar className="text-xl mr-2" />
-              Estadísticas
-            </a>
-          </li>
-          {/* Agregar más enlaces para otras secciones del dashboard si es necesario */}
-        </ul>
-      </aside>
+      <aside className="bg-gray-900 text-white w-64 p-4 bg-fixed top-0 right-4">
+      <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+      <List>
+        <ListItem>
+          <ListItemIcon>
+            <HomeIcon style={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" primaryTypographyProps={{ style: { color: 'white' } }} />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <AccessTimeIcon style={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Time Tracker" primaryTypographyProps={{ style: { color: 'white' } }} />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <HistoryIcon style={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="History" primaryTypographyProps={{ style: { color: 'white' } }} />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <BarChartIcon style={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Report" primaryTypographyProps={{ style: { color: 'white' } }} />
+        </ListItem>
+        <ListItem component={Link} to="/projects">
+          <ListItemIcon>
+            <AssignmentIcon style={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Projects" primaryTypographyProps={{ style: { color: 'white' } }} />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <GroupIcon style={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Teams" primaryTypographyProps={{ style: { color: 'white' } }} />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <BusinessIcon style={{ color: 'white' }} />
+          </ListItemIcon>
+          <ListItemText primary="Clients" primaryTypographyProps={{ style: { color: 'white' } }} />
+        </ListItem>
+      </List>
+    </aside>
 
       {/* Contenido principal */}
       <main className="flex-1 p-4">
