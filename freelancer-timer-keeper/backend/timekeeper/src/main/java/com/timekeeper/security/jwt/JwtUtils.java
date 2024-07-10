@@ -1,6 +1,7 @@
 package com.timekeeper.security.jwt;
 
 import com.timekeeper.security.service.UserDetailsImpl;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,11 +23,15 @@ import java.util.stream.Collectors;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${faiss.app.jwtSecret}")
+    @Value("${timekeeper.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${faiss.app.jwtExpirationMs}")
+    @Value("${timekeeper.app.jwtExpirationMs}")
     private int jwtExpirationMs;
+
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    }
 
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -36,7 +41,7 @@ public class JwtUtils {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        long expirationTimeInMillis = 30 * 24 * 60 * 60 * 1000L; // Example expiration time
+        long expirationTimeInMillis = 30 * 24 * 60 * 60 * 1000L;
 
         String token = Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
@@ -52,26 +57,21 @@ public class JwtUtils {
         return token;
     }
 
-    private Key getSigningKey() {
-        // Generate a secure key with sufficient size
-        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    }
-
-    public String getUserNameFromJwtToken(String token) {
+    private Claims extractClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
+    }
+
+    public String getUserNameFromJwtToken(String token) {
+        return extractClaims(token).getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey())
-                    .build()
-                    .parseClaimsJws(authToken);
+            extractClaims(authToken);
             return true;
         } catch (MalformedJwtException e) {
             logger.error("Invalid JWT token: {}", e.getMessage());
