@@ -1,23 +1,42 @@
-
+import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import ProjectModal from './modal.project'; 
 
-const projectsData = [
-  { title: 'Create e-commerce MercaFresh', team: 'Yourself', client: 'Carlos', deliveryDate: '22-05-2024', status: 'Pending' },
+interface Project {
+  title: string;
+  team: string;
+  client: string;
+  deliveryDate: string;
+  status: string;
+}
+
+const projectsData: Project[] = [
+  { title: 'Create e-commerce MercaFresh', team: 'Yourself', client: 'Carlos', deliveryDate: '22-07-2024', status: 'Pending' },
   { title: 'Landing Tesla', team: 'Omar, Damian, Lucas, Yourself', client: 'Tesla', deliveryDate: '03-08-2024', status: 'Pending' },
   { title: 'Inventory System', team: 'Omar, David, Oscar, Francisco', client: 'Rick', deliveryDate: '10-06-2024', status: 'Pending' },
-  { title: 'Create telegram bot', team: 'Yourself', client: 'Maria', deliveryDate: '22-05-2024', status: 'Complete' },
-  // Añade más proyectos si es necesario
+  { title: 'Create telegram bot', team: 'Yourself', client: 'Maria', deliveryDate: '11-07-2024', status: 'Complete' },
+  // Add more projects if needed
 ];
 
-const Projects = () => {
+const Projects: React.FC = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false); // State to control the visibility of the modal
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div style={{ padding: '16px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
         <Typography variant="h5" component="h2">
           PROJECTS
         </Typography>
-        <Button variant="contained" color="primary" startIcon={<AddIcon />}>
+        <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleOpenModal}>
           Add Project
         </Button>
       </div>
@@ -45,6 +64,9 @@ const Projects = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Render the modal */}
+      <ProjectModal open={openModal} onClose={handleCloseModal} />
     </div>
   );
 };
