@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import ProjectModal from './modal.project'; 
-
+import ProjectModal from './modal.project';
+import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 interface Project {
   id: number;
   title: string;
@@ -31,10 +32,18 @@ const Projects: React.FC = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
-
+  const navigate = useNavigate();
   return (
     <div style={{ padding: '16px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<ArrowBackIcon />}
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </Button>
         <Typography variant="h5" component="h2">
           PROJECTS
         </Typography>

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddTaskModal from './modal.task';
 
 const initialTasksData = [
@@ -16,7 +18,7 @@ const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const [tasks, setTasks] = useState(initialTasksData.filter(task => task.projectId === parseInt(projectId)));
   const [openAddTaskModal, setOpenAddTaskModal] = useState(false);
-
+  const navigate = useNavigate();
   const handleAddTask = (task: { task: string; assignedTo: string; status: string }) => {
     setTasks([...tasks, { projectId: parseInt(projectId), ...task }]);
   };
@@ -24,6 +26,14 @@ const ProjectDetails: React.FC = () => {
   return (
     <div style={{ padding: '16px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<ArrowBackIcon />}
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </Button>
         <Typography variant="h5" component="h2">
           Project Details
         </Typography>
