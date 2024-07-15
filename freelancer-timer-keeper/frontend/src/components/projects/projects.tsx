@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 import ProjectModal from './modal.project'; 
 
 interface Project {
+  id: number;
   title: string;
   team: string;
   client: string;
@@ -12,10 +14,10 @@ interface Project {
 }
 
 const projectsData: Project[] = [
-  { title: 'Create e-commerce MercaFresh', team: 'Yourself', client: 'Carlos', deliveryDate: '22-07-2024', status: 'Pending' },
-  { title: 'Landing Tesla', team: 'Omar, Damian, Lucas, Yourself', client: 'Tesla', deliveryDate: '03-08-2024', status: 'Pending' },
-  { title: 'Inventory System', team: 'Omar, David, Oscar, Francisco', client: 'Rick', deliveryDate: '10-06-2024', status: 'Pending' },
-  { title: 'Create telegram bot', team: 'Yourself', client: 'Maria', deliveryDate: '11-07-2024', status: 'Complete' },
+  { id: 1, title: 'Create e-commerce MercaFresh', team: 'Yourself', client: 'Carlos', deliveryDate: '22-07-2024', status: 'Pending' },
+  { id: 2, title: 'Landing Tesla', team: 'Omar, Damian, Lucas, Yourself', client: 'Tesla', deliveryDate: '03-08-2024', status: 'Pending' },
+  { id: 3, title: 'Inventory System', team: 'Omar, David, Oscar, Francisco', client: 'Rick', deliveryDate: '10-06-2024', status: 'Pending' },
+  { id: 4, title: 'Create telegram bot', team: 'Yourself', client: 'Maria', deliveryDate: '11-07-2024', status: 'Complete' },
   // Add more projects if needed
 ];
 
@@ -52,8 +54,8 @@ const Projects: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {projectsData.map((project, index) => (
-              <TableRow key={index}>
+            {projectsData.map((project) => (
+              <TableRow key={project.id} component={Link} to={`/projects/${project.id}`} style={{ textDecoration: 'none' }}>
                 <TableCell>{project.title}</TableCell>
                 <TableCell>{project.team}</TableCell>
                 <TableCell>{project.client}</TableCell>
