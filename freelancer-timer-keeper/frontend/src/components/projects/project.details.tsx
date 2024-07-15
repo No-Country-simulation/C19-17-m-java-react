@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import AddTaskModal from './modal.task';
 
-const tasksData = [
+const initialTasksData = [
   { projectId: 1, task: 'Create Items in DB', assignedTo: 'Yourself', status: 'Pending' },
   { projectId: 1, task: 'Create Component Car', assignedTo: 'Yourself', status: 'Pending' },
   { projectId: 1, task: 'Integrate PayPal', assignedTo: 'Yourself', status: 'Pending' },
@@ -13,9 +14,12 @@ const tasksData = [
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
+  const [tasks, setTasks] = useState(initialTasksData.filter(task => task.projectId === parseInt(projectId)));
+  const [openAddTaskModal, setOpenAddTaskModal] = useState(false);
 
-  // Filtra las tareas del proyecto actual
-  const projectTasks = tasksData.filter(task => task.projectId === parseInt(projectId));
+  const handleAddTask = (task: { task: string; assignedTo: string; status: string }) => {
+    setTasks([...tasks, { projectId: parseInt(projectId), ...task }]);
+  };
 
   return (
     <div style={{ padding: '16px' }}>
@@ -23,7 +27,7 @@ const ProjectDetails: React.FC = () => {
         <Typography variant="h5" component="h2">
           Project Details
         </Typography>
-        <Button variant="contained" color="primary" startIcon={<AddIcon />}>
+        <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={() => setOpenAddTaskModal(true)}>
           Add Task
         </Button>
       </div>
@@ -37,7 +41,7 @@ const ProjectDetails: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {projectTasks.map((task, index) => (
+            {tasks.map((task, index) => (
               <TableRow key={index}>
                 <TableCell>{task.task}</TableCell>
                 <TableCell>{task.assignedTo}</TableCell>
@@ -51,6 +55,13 @@ const ProjectDetails: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Render the AddTaskModal */}
+      <AddTaskModal
+        open={openAddTaskModal}
+        onClose={() => setOpenAddTaskModal(false)}
+        onSave={handleAddTask}
+      />
     </div>
   );
 };
