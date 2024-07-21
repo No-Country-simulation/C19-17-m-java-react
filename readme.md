@@ -21,4 +21,55 @@ Este proyecto es una simulación de trabajo desarrollada por la cohorte **c19-17
 
 ```bash
 git clone https://github.com/tu-usuario/tu-repositorio.git
-cd tu-repositorio
+cd tu-repositorio 
+```
+## Backend instructions
+
+### Setting Up Timekeeper Project with MySQL Workbench
+
+#### 1. Create a Database on MySQL Workbench
+
+- Open MySQL Workbench.
+- Connect to your MySQL server if not already connected.
+- Execute the following SQL command to create a database named `timekeeper`:
+
+  ```sql
+  CREATE DATABASE timekeeper;
+### Clone Repository
+
+To clone the repository `C19-17-m-java-react` from GitHub, use the following command:
+
+```sh
+git clone https://github.com/No-Country-simulation/C19-17-m-java-react.git;
+```
+
+## Make sure you are working on the backend directory 
+
+### Move to directory 
+
+```sh
+cd C19-17-m-java-react/freelancer-timer-keeper/backend/timekeeper
+```
+
+### MySQL Dependency Update
+
+To update the MySQL dependency in your Maven project, replace the existing dependency with the following:
+
+```xml
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <scope>runtime</scope>
+</dependency>
+```
+
+### Application properties
+- Add your username and password for MySQL database.
+
+### Add roles to database
+- Under the roles table add two roles
+- - ROLE_USER
+- - ROLE_FREELANCER
+
+### Run the project
+- Run project according to the IDE you are using.
