@@ -9,17 +9,14 @@ interface UserData {
   email: string;
   password: string;
   birthdate: string;
-  role_id: number;
+  role_id: string;
   phone: string;
 }
 
 export async function registerUser(userData: UserData): Promise<void> {
   try {
-    await axios.post(`${backendUrl}/auth/register`, userData, {
-      headers: {
-        'apiKey': apiKey,
-      }
-    });
+    await axios.post(`${backendUrl}/api/v1/auth/register`, userData, {
+     });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
@@ -44,7 +41,7 @@ interface ErrorResponse {
 export async function loginUser(email: string, password: string): Promise<string> {
   try {
     const response: AxiosResponse<LoginResponse> = await axios.post(
-      `${backendUrl}/auth/login`,
+      `${backendUrl}/api/v1/auth/login`,
       { email, password },
       {
         headers: {
