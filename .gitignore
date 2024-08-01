@@ -1,0 +1,5 @@
+.DS_Store
+/frontend/node_modules/
+
+/freelancer-timer-keeper/frontend/.idea/
+/freelancer-timer-keeper/frontend/node_modules/
